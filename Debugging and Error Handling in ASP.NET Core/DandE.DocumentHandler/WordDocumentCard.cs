@@ -8,6 +8,8 @@
         {
         }
 
+        public WordDocumentCard(string fileName) : base(File.ReadAllBytes(fileName)) { }
+
         public override DocumentParser Parser
         {
             get

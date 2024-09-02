@@ -10,4 +10,8 @@
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.15.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DandE.DocumentHandler\DandE.DocumentHandler.csproj" />
+  </ItemGroup>
+
 </Project>
