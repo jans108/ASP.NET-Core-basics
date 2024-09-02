@@ -1,19 +1,20 @@
 ﻿using DandE.DocumentHandler;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace WebApplication1.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        IWebHostEnvironment _environment;
+        private readonly ILogger<IndexModel> logger;
+        private readonly IWebHostEnvironment environment;
 
-        public IndexModel(ILogger<IndexModel> logger, IWebHostEnvironment environment)
+        public IndexModel(ILogger<IndexModel> _logger, IWebHostEnvironment _environment)
         {
-            _logger = logger;
-            _environment = environment;
-            
+            logger = _logger;
+            environment = _environment;
+
 
         }
 
@@ -28,18 +29,34 @@ namespace WebApplication1.Pages
             {
                 string[] documents = GetDocumentFiles();
 
-                return documents.Select(fileName => new WordDocumentCard(fileName));
+                var cards = new List<WordDocumentCard>();
+
+                foreach (var document in documents)
+                {
+                    logger.LogInformation($"Creating card for '{document}'");
+
+                    cards.Add(new WordDocumentCard(document, logger));
+                }
+
+                return cards;
             }
         }
 
+        public object CurrentUser { get; private set; }
+
         private string[] GetDocumentFiles()
         {
-            var rootPath = this._environment.WebRootPath;
+            logger.LogDebug("Enter get document files");
+
+            var rootPath = this.environment.WebRootPath;
 
             var docPath = Path.Combine(rootPath, "../documents");
 
             var documents = Directory.GetFiles(docPath, "*.docx");
-            return documents;
+
+            logger.LogDebug("Returning document list");
+
+            return documents.Where(fileName => Card.DocumentIsPermittedForCurrentUser(CurrentUser, fileName, logger)).ToArray();
         }
     }
 }
