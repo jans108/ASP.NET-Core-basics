@@ -7,9 +7,11 @@
 <div class="text-center">
     <h1 class="display-4">Document Review Panel</h1>
     <ul>
-        @foreach(var document in Model.Documents)
+        @foreach (var document in Model.Documents)
         {
-            <li>@document.Title</li>
+            <li class="document" data-document-id="@document.Title" data-document-contents="@document.Text">@document.Title</li>
         }
     </ul>
+    <div class="infopanel">
+    </div>
 </div>

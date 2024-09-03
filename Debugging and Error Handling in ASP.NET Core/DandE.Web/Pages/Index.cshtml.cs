@@ -1,37 +1,34 @@
-﻿using DandE.DocumentHandler;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-
-namespace WebApplication1.Pages
+﻿namespace WebApplication1.Pages
 {
+    using DandE.DocumentHandler;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using System.Reflection;
+
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> logger;
-        private readonly IWebHostEnvironment environment;
+        IWebHostEnvironment environment;
 
         public IndexModel(ILogger<IndexModel> _logger, IWebHostEnvironment _environment)
         {
             logger = _logger;
             environment = _environment;
-
-
         }
 
         public void OnGet()
         {
 
         }
-
+        
         public IEnumerable<WordDocumentCard> Documents
         {
             get
             {
                 string[] documents = GetDocumentFiles();
 
-                var cards = new List<WordDocumentCard>();
+                var cards = new List<WordDocumentCard>();  
 
-                foreach (var document in documents)
+                foreach(var document in documents)
                 {
                     logger.LogInformation($"Creating card for '{document}'");
 
@@ -42,6 +39,7 @@ namespace WebApplication1.Pages
             }
         }
 
+        // For the learner reading this later on: this should be injected just like the logger is up top
         public object CurrentUser { get; private set; }
 
         private string[] GetDocumentFiles()
