@@ -26,4 +26,5 @@ li {
     border: 2px solid black;
     padding: 7px;
     background-color: #DDABEA;
+    display: none;
 }

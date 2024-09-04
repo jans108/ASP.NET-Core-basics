@@ -44,7 +44,7 @@ namespace DandE.DocumentHandler
             {
                 File.ReadAllBytes(fileName);
 
-             
+                return true;
             }
             catch (ForbiddenDocumentException)
             {
@@ -58,7 +58,7 @@ namespace DandE.DocumentHandler
                 throw;
             }
 
-            return true;
+
         }
     }
 }

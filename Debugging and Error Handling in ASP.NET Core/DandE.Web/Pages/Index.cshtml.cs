@@ -39,7 +39,6 @@
             }
         }
 
-        // For the learner reading this later on: this should be injected just like the logger is up top
         public object CurrentUser { get; private set; }
 
         private string[] GetDocumentFiles()

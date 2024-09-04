@@ -22,16 +22,5 @@ namespace DandE.DocumentHandler.Tests
             Assert.Equal(expectedTitle, docCard.Title);
         }
 
-        [Fact]
-        public void DocumentTitleIsFromIAmSoProud()
-        {
-            var expectedTitle = "From I Am So Proud";
-
-            var logger = new LoggerFactory().CreateLogger("Doc1Properties Test");
-
-            var docCard = new WordDocumentCard(TestFiles.Test_Document, logger);
-
-            Assert.True(false, "write the test");
-        }
     }
 }
